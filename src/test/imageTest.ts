@@ -8,28 +8,43 @@ import remarkHtml = require('remark-html')
 import {Plugin} from '../plugin/Plugin'
 
 import {Image} from '../plugin'
+import {IASTNode} from "../interfaces/ASTNode";
 
-function toMarkdown(plugin, markdown) {
+function toMarkdown(markdown) {
   return remark()
-    .use(plugin.parse())
-    .use(remarkHtml)
-    .processSync(markdown).contents
+      .use(() => {
+        const defaultOption = {
+          imageCdn: 'https://cdn.hao-zi.cn/',
+          editView: false,
+        }
+        const plugin = new Plugin(defaultOption)
+        plugin.register(Image)
+        return (node: IASTNode, file: any) => {
+          plugin.map(node, file)
+        }
+      })
+      .use(remarkHtml)
+      .processSync(markdown).contents
 }
 const defalutOption = {
   imageCdn: '233333',
   editView: false
 }
 
-test('test Image transform', (t) => {
+test('图片转换测试 -> big', (t) => {
+  t.is(toMarkdown(`![test@big](https://test)`),
+      `<p><img src="https://test" alt="test" big="true"></p>\n`
+  )
+})
 
-  const plugin = new Plugin(defalutOption)
-  plugin.register(Image)
-  console.log(toMarkdown(plugin,
-    `![@big](https://test)`
-  ))
-  t.is(toMarkdown(plugin,
-  `![@big](https://test)`
-  ),
-  `<p><img src="https://test" alt="" big="true"></p>`
+test('图片转换测试 -> small', (t) => {
+  t.is(toMarkdown(`![test@small](https://test)`),
+      `<p><img src="https://test" alt="test" small="true"></p>\n`
+  )
+})
+
+test('图片转换测试 -> 不填参数', (t) => {
+  t.is(toMarkdown(`![test](https://test)`),
+      `<p><img src="https://test" alt="test"></p>\n`
   )
 })

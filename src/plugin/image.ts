@@ -18,6 +18,7 @@ export class Image extends APlugin {
   }
   public transformer(node: IASTNodeImage, file: any) {
      if (node.alt) {
+       node.data = node.data || {}
        if (/@big$/.test(node.alt)) {
           node.alt = node.alt.replace(/@big$/, '')
           node.data.hProperties = {

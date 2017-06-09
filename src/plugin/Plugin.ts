@@ -16,13 +16,7 @@ export class Plugin {
   public register(plugin) {
     this.plugins.push(new plugin(this.option))
   }
-  public parse() {
-    const that = this
-    console.log('load parse')
-    return (...arg) => {
-      that.map.apply(that, arg)
-    }
-  }
+
   public map(node: IASTNode, file: any) {
     if (!node) {
       return

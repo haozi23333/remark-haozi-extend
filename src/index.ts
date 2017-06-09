@@ -3,6 +3,7 @@
  */
 import {Plugin} from './plugin/Plugin'
 import {Image} from './plugin'
+import {IASTNode} from "./interfaces/ASTNode";
 export interface IASTParseOption {
     imageCdn: string,
     editView?: boolean
@@ -19,5 +20,7 @@ export default function(option: IASTParseOption) {
     } as IASTParseOption
     const plugin = new Plugin(option)
     plugin.register(Image)
-    return plugin.map
+    return function (node: IASTNode, file: any) {
+        plugin.map(node, file)
+    }
 }
