@@ -9,28 +9,28 @@
 
 export interface IASTNode {
     type: string
-    position: IASTNode_Position[]
+    position: IASTNodePosition[]
     children?: IASTNode[]
 }
 
 /**
  *  这个 Node 在文本位置
  */
-export interface IASTNode_Position {
-    end: IASTNode_Position_P
-    start: IASTNode_Position_P
+export interface IASTNodePosition {
+    end: IASTNodePositionP
+    start: IASTNodePositionP
 }
 
 /**
  * 位置信息
  */
-export interface IASTNode_Position_P {
+export interface IASTNodePositionP {
     column: number
     line: number
     offset: number
 }
 
-export interface IASTNode_Data {
+export interface IASTNodeData {
     data: {
         hProperties?: object,
         hName?: string
@@ -39,14 +39,13 @@ export interface IASTNode_Data {
     }
 }
 
-export interface IASTNode_Root extends IASTNode {
-
+export interface IASTNodeRoot extends IASTNode {
 }
 
 /**
  * AST 图片节点
  */
-export interface IASTNode_Image extends IASTNode, IASTNode_Data {
+export interface IASTNodeImage extends IASTNode, IASTNodeData {
     alt: string
     title: string
     url: string
@@ -55,14 +54,14 @@ export interface IASTNode_Image extends IASTNode, IASTNode_Data {
 /**
  * AST 文本节点
  */
-export interface IASTNode_Text extends IASTNode {
+export interface IASTNodeText extends IASTNode {
     /**
      * 文本
      */
     value: string
 }
 
-export interface IASTNode_Heading extends IASTNode {
+export interface IASTNodeHeading extends IASTNode {
     /**
      * h 标签深度
      */
@@ -72,13 +71,14 @@ export interface IASTNode_Heading extends IASTNode {
 /**
  * Blockquote 块
  */
-export interface IASTNode_Blockquote extends IASTNode {
+export interface IASTNodeBlockquote extends IASTNode {
+
 }
 
 /**
  *
  */
-export interface IASTNode_List extends IASTNode {
+export interface IASTNodeList extends IASTNode {
     loose: boolean
     ordered: boolean
     start: boolean
@@ -86,12 +86,12 @@ export interface IASTNode_List extends IASTNode {
 /**
  * 列表
  */
-export interface IASTNode_Listitem extends IASTNode {
+export interface IASTNodeListitem extends IASTNode {
     checked: any
     loose: boolean
 }
 /**
  * 段落
  */
-export interface IASTNode_Paragraph extends IASTNode {
+export interface IASTNodeParagraph extends IASTNode {
 }

@@ -3,8 +3,22 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "test": "yarn run build && ava",
+    "build": "rm -R ./lib && tsc"
+  },
   "dependencies": {
+    "@types/lodash": "^4.14.65",
+    "@types/node": "^7.0.29",
+    "ava": "^0.19.1",
+    "lodash": "^4.17.4",
     "remark": "^7.0.1",
-    "remark-cli": "^3.0.1"
+    "remark-cli": "^3.0.1",
+    "remark-html": "^6.0.0"
+  },
+  "ava": {
+    "files": [
+      "./lib/test/*.js"
+    ]
   }
 }
