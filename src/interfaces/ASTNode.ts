@@ -9,7 +9,7 @@
 
 export interface IASTNode {
     type: string
-    position: IASTNodePosition[]
+    position: IASTNodePosition
     children?: IASTNode[]
 }
 

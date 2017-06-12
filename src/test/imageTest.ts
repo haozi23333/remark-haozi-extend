@@ -45,6 +45,6 @@ test('图片转换测试 -> small', (t) => {
 
 test('图片转换测试 -> 不填参数', (t) => {
   t.is(toMarkdown(`![test](https://test)`),
-      `<p><img src="https://test" alt="test"></p>\n`
+      `<p><img src="https://test" alt="test" small="true"></p>\n`
   )
 })
