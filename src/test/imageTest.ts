@@ -8,7 +8,7 @@ import remarkHtml = require('remark-html')
 import {Plugin} from '../plugin/Plugin'
 
 import {Image} from '../plugin'
-import {IASTNode} from "../interfaces/ASTNode";
+import {IASTNode, IASTNodeImage} from "../interfaces/ASTNode";
 
 function toMarkdown(markdown) {
   return remark()
@@ -19,8 +19,8 @@ function toMarkdown(markdown) {
         }
         const plugin = new Plugin(defaultOption)
         plugin.register(Image)
-        return (node: IASTNode, file: any) => {
-          plugin.map(node, file)
+        return (node: IASTNodeImage, file: any) => {
+          plugin.map(node, null, file)
         }
       })
       .use(remarkHtml)

@@ -16,21 +16,28 @@ export class Image extends APlugin {
     this.imageCdn = option.imageCdn
     this.editView = option.editView
   }
+
+  /**
+   *
+   * @param node
+   * @param nodes
+   * @param tree
+   * @param file
+   */
   public transformer(node: IASTNodeImage, nodes: IASTNode, tree: IASTNode, file: any) {
     if (node.alt) {
       node.data = node.data || {}
-      if (/@big$/.test(node.alt)) {
-        node.alt = node.alt.replace(/@big$/, '')
-        node.data.hProperties = {
-          big: true
-        }
-      } else {
-        if (/@small$/.test(node.alt)) {
-          node.alt = node.alt.replace(/@small$/, '')
-        }
+      node.data.hProperties = node.data.hProperties || {}
+      const param = node.alt.match(/@\w*/g)
+      node.alt = node.alt.match(/^\w*/)[0]
+      if (param === null) {
         node.data.hProperties = {
           small: true
         }
+      } else {
+        param.map(v => {
+          node.data.hProperties[v.match(/\w*/g)[1]] = true
+        })
       }
     }
   }

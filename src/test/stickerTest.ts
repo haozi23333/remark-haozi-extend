@@ -8,7 +8,7 @@ import remarkHtml = require('remark-html')
 import {Plugin} from '../plugin/Plugin'
 
 import {sticker} from '../plugin'
-import {IASTNode} from "../interfaces/ASTNode";
+import {IASTNode, IASTNodeImage} from "../interfaces/ASTNode";
 import {NodeText} from '../NodeType'
 
 function toMarkdown(markdown) {
@@ -20,8 +20,8 @@ function toMarkdown(markdown) {
         }
         const plugin = new Plugin(defaultOption)
         plugin.register(sticker)
-        return (node: IASTNode, file: any) => {
-          plugin.map(node, file)
+        return (node: IASTNodeImage, file: any) => {
+          plugin.map(node, null, file)
         }
       })
       .use(remarkHtml)
@@ -46,6 +46,6 @@ test('表情包节点转换 -> big', (t) => {
     },
     value: '我想在这里放一个表情 :这个是一个表情: '
   }
-  s.transformer(tree, {})
+  s.transformer(tree, null, tree, {})
   console.log(toMarkdown('我想在这里放一个表情 :这个是一个表情: '))
 })

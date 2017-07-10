@@ -24,6 +24,6 @@ export default function(option: IASTParseOption) {
     plugin.register(sticker)
     return function (node: IASTNode, file: any) {
         plugin.setTree(node)
-        plugin.map(node, file)
+        plugin.map(node, null, file)
     }
 }
